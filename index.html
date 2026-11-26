@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
+    <style>
+      @font-face {
+        font-family: "Playfair Display";
+        src: url("assets/fonts/playfair-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Playfair Display";
+        src: url("assets/fonts/playfair-400-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: "Montserrat";
+        src: url("assets/fonts/montserrat-600.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Montserrat";
+        src: url("assets/fonts/montserrat-800.woff2") format("woff2");
+        font-weight: 800;
+        font-style: normal;
+      }
+      :root {
+        --ground: #1a1008;
+        --gold: #ffe08a;
+        --gold-bright: #ffd24a;
+        --ink: #ffffff;
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-caption: "Montserrat", "Inter", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #three-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 0;
+      }
+
+      /* Subtle top scrim so upper-third serif title cards always pass contrast */
+      .top-scrim {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 460px;
+        background: linear-gradient(180deg, rgba(16, 10, 6, 0.72) 0%, rgba(16, 10, 6, 0.35) 55%, rgba(16, 10, 6, 0) 100%);
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      /* Top-left persistent watermark */
+      .watermark {
+        position: absolute;
+        top: 120px;
+        left: 64px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .watermark-text {
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        line-height: 1.05;
+        color: #f4e8d1;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+      }
+
+      /* Upper-third title cards */
+      .title-card {
+        position: absolute;
+        top: 220px;
+        left: 80px;
+        right: 80px;
+        z-index: 15;
+        text-align: center;
+        pointer-events: none;
+      }
+      .title-card-inner {
+        opacity: 0;
+      }
+      .title-main {
+        font-family: var(--font-display);
+        font-size: 54px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.12;
+        color: var(--gold);
+        text-shadow:
+          0 3px 0 rgba(16, 10, 6, 0.95),
+          0 6px 18px rgba(0, 0, 0, 0.85);
+      }
+      .title-sub {
+        margin-top: 10px;
+        font-family: var(--font-display);
+        font-size: 30px;
+        font-style: italic;
+        font-weight: 500;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+      }
+
+      /* Captions layer */
+      #captions-layer {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        bottom: 500px;
+        z-index: 25;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+      .caption-line {
+        position: absolute;
+        max-width: 900px;
+        text-align: center;
+        font-family: var(--font-caption);
+        font-size: 54px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        -webkit-text-stroke: 10px #120d08;
+        paint-order: stroke fill;
+        text-shadow: 0 6px 14px rgba(0, 0, 0, 0.85);
+        white-space: nowrap;
+      }
+      .caption-line.gold {
+        color: var(--gold-bright);
+      }
+
+      /* Full-screen outro card */
+      #outro-card {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+      }
+      #outro-inner {
+        position: absolute;
+        inset: 0;
+        background: #141013;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+      }
+      .outro-title {
+        margin-top: 44px;
+        font-family: var(--font-display);
+        font-size: 74px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        line-height: 1.08;
+        text-align: center;
+        color: #f5c96b;
+      }
+      .outro-sub {
+        margin-top: 22px;
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-style: italic;
+        color: #f4e8d1;
+      }
+      .outro-cta {
+        margin-top: 64px;
+        font-family: var(--font-caption);
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        color: #c8b89a;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="134"
+      data-width="1080"
+      data-height="1920"
+      data-fps="30"
+    >
+      <canvas
+        id="three-layer"
+        class="clip"
+        data-start="0"
+        data-duration="134"
+        data-track-index="0"
+        data-track-kind="graphics"
+        width="720"
+        height="1280"
+      ></canvas>
+
+      <audio
+        id="narration-bed"
+        class="clip"
+        src="assets/audio/original-audio.m4a"
+        data-start="0"
+        data-duration="134"
+        data-track-index="1"
+      ></audio>
+
+      <div class="top-scrim clip" id="top-scrim" data-start="0" data-duration="131.5" data-track-index="2"></div>
+
+      <!-- Persistent Watermark -->
+      <div class="watermark clip" id="watermark" data-start="0" data-duration="131.5" data-track-index="3">
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" stroke="#f4e8d1" stroke-width="2" />
+          <circle cx="20" cy="15" r="4.5" fill="#f4e8d1" />
+          <path d="M17.5 18.5L15.5 29H24.5L22.5 18.5H17.5Z" fill="#f4e8d1" />
+        </svg>
+        <div class="watermark-text" data-layout-ignore>HIDDEN<br />HISTORY</div>
+      </div>
+
+      <!-- Title & Callout Cards -->
+      <div class="title-card clip" id="card-s02" data-start="2.03" data-duration="4.7" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">FIRUZ SHAH<br />TUGHLAQ</div><div class="title-sub">Sultan of Delhi, 1351–1388</div></div>
+      </div>
+      <div class="title-card clip" id="card-s04" data-start="8.97" data-duration="1.86" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">8,000 MEN</div></div>
+      </div>
+      <div class="title-card clip" id="card-s05" data-start="10.83" data-duration="2.17" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">TOPRA → DELHI</div><div class="title-sub">the pillar's journey, 1356</div></div>
+      </div>
+      <div class="title-card clip" id="card-s08" data-start="20.77" data-duration="1.7" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">NOBODY COULD<br />READ IT</div></div>
+      </div>
+      <div class="title-card clip" id="card-s10" data-start="27.47" data-duration="3.7" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">LAURIYA<br />NANDANGARH</div><div class="title-sub">Bihar · Ashoka pillar, c. 243 BCE</div></div>
+      </div>
+      <div class="title-card clip" id="card-s13" data-start="43.9" data-duration="2.5" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">JAMES PRINSEP</div><div class="title-sub">Calcutta Mint · 1837</div></div>
+      </div>
+      <div class="title-card clip" id="card-s14" data-start="46.4" data-duration="7.1" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">SANCHI STUPA</div><div class="title-sub">donors' names, carved in the railing</div></div>
+      </div>
+      <div class="title-card clip" id="card-s19" data-start="74.0" data-duration="4.9" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">DEVANAMPRIYA<br />PRIYADARSHI</div><div class="title-sub">"Beloved of the Gods"</div></div>
+      </div>
+      <div class="title-card clip" id="card-s20" data-start="78.9" data-duration="5.0" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">DIPAVAMSA</div><div class="title-sub">a chronicle of Sri Lanka</div></div>
+      </div>
+      <div class="title-card clip" id="card-s21" data-start="83.93" data-duration="6.3" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">MASKI,<br />KARNATAKA</div><div class="title-sub">1915</div></div>
+      </div>
+      <div class="title-card clip" id="card-s25" data-start="97.0" data-duration="5.0" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">PATALIPUTRA</div><div class="title-sub">today's Patna</div></div>
+      </div>
+      <div class="title-card clip" id="card-s27" data-start="105.23" data-duration="3.6" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">KALINGA</div><div class="title-sub">c. 261 BCE</div></div>
+      </div>
+      <div class="title-card clip" id="card-s28" data-start="108.87" data-duration="3.6" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">ROCK EDICT 13</div><div class="title-sub">Ashoka's regret, in his own words</div></div>
+      </div>
+      <div class="title-card clip" id="card-s32" data-start="121.83" data-duration="4.0" data-track-index="4">
+        <div class="title-card-inner"><div class="title-main">1,000 YEARS</div></div>
+      </div>
+
+      <!-- Captions Track (1-3 word spoken Hinglish chunks) -->
+      <div id="captions-layer" data-track-index="5" data-track-kind="captions">
+        <div class="caption-line clip" id="c01" data-start="0.0" data-duration="1.1">1356 mein</div>
+        <div class="caption-line gold clip" id="c02" data-start="1.1" data-duration="0.93">ek raja ne</div>
+        <div class="caption-line clip" id="c03" data-start="2.03" data-duration="1.5">ek bahut</div>
+        <div class="caption-line gold clip" id="c04" data-start="3.53" data-duration="1.6">bada pillar</div>
+        <div class="caption-line clip" id="c05" data-start="5.13" data-duration="1.64">zameen se nikala</div>
+        <div class="caption-line gold clip" id="c06" data-start="6.77" data-duration="1.1">42 pahiyon ki</div>
+        <div class="caption-line clip" id="c07" data-start="7.87" data-duration="1.1">gaadi par</div>
+        <div class="caption-line gold clip" id="c08" data-start="8.97" data-duration="1.86">8,000 log</div>
+        <div class="caption-line clip" id="c09" data-start="10.83" data-duration="1.1">do sau</div>
+        <div class="caption-line gold clip" id="c10" data-start="11.93" data-duration="1.07">kilometer door</div>
+        <div class="caption-line clip" id="c11" data-start="13.0" data-duration="1.5">Phir usne</div>
+        <div class="caption-line gold clip" id="c12" data-start="14.5" data-duration="1.6">apne darbaar ke</div>
+        <div class="caption-line clip" id="c13" data-start="16.1" data-duration="1.63">sabse upar</div>
+        <div class="caption-line gold clip" id="c14" data-start="17.73" data-duration="1.5">is par</div>
+        <div class="caption-line clip" id="c15" data-start="19.23" data-duration="1.54">kya likha hai</div>
+        <div class="caption-line gold clip" id="c16" data-start="20.77" data-duration="1.7">kisi ne nahi padha</div>
+        <div class="caption-line clip" id="c17" data-start="22.47" data-duration="2.5">yeh ajeeb</div>
+        <div class="caption-line gold clip" id="c18" data-start="24.97" data-duration="2.5">likhawat thi</div>
+        <div class="caption-line clip" id="c19" data-start="27.47" data-duration="1.8">Aur aise</div>
+        <div class="caption-line gold clip" id="c20" data-start="29.27" data-duration="1.9">poore Bihar ke</div>
+        <div class="caption-line clip" id="c21" data-start="31.17" data-duration="3.5">Bas khade the</div>
+        <div class="caption-line gold clip" id="c22" data-start="34.67" data-duration="3.73">chupchaap</div>
+        <div class="caption-line clip" id="c23" data-start="38.4" data-duration="2.7">Calcutta mein</div>
+        <div class="caption-line gold clip" id="c24" data-start="41.1" data-duration="2.8">ek angrez</div>
+        <div class="caption-line clip" id="c25" data-start="43.9" data-duration="2.5">James Prinsep</div>
+        <div class="caption-line gold clip" id="c26" data-start="46.4" data-duration="3.5">Ye un</div>
+        <div class="caption-line clip" id="c27" data-start="49.9" data-duration="3.67">stupa ke</div>
+        <div class="caption-line gold clip" id="c28" data-start="53.57" data-duration="2.5">aakhir mein</div>
+        <div class="caption-line clip" id="c29" data-start="56.07" data-duration="2.5">hoti thi</div>
+        <div class="caption-line gold clip" id="c30" data-start="58.57" data-duration="4.43">iska matlab hoga</div>
+        <div class="caption-line clip" id="c31" data-start="63.0" data-duration="2.6">Aur bas</div>
+        <div class="caption-line gold clip" id="c32" data-start="65.6" data-duration="2.63">isi likhawat se</div>
+        <div class="caption-line clip" id="c33" data-start="68.23" data-duration="2.8">ek hi raja</div>
+        <div class="caption-line gold clip" id="c34" data-start="71.03" data-duration="2.97">ka title</div>
+        <div class="caption-line clip" id="c35" data-start="74.0" data-duration="2.4">Matlab</div>
+        <div class="caption-line gold clip" id="c36" data-start="76.4" data-duration="2.5">Devanampriya</div>
+        <div class="caption-line clip" id="c37" data-start="78.9" data-duration="2.5">Sri Lanka ki</div>
+        <div class="caption-line gold clip" id="c38" data-start="81.4" data-duration="2.53">kitaab se andaaza</div>
+        <div class="caption-line clip" id="c39" data-start="83.93" data-duration="3.1">1915 mein</div>
+        <div class="caption-line gold clip" id="c40" data-start="87.03" data-duration="3.24">pakka saboot</div>
+        <div class="caption-line clip" id="c41" data-start="90.27" data-duration="1.8">ek chhote</div>
+        <div class="caption-line gold clip" id="c42" data-start="92.07" data-duration="1.76">patthar se</div>
+        <div class="caption-line clip" id="c43" data-start="93.83" data-duration="2.07">us par saaf</div>
+        <div class="caption-line gold clip" id="c44" data-start="95.9" data-duration="1.1">Ashoka</div>
+        <div class="caption-line clip" id="c45" data-start="97.0" data-duration="2.5">Wo</div>
+        <div class="caption-line gold clip" id="c46" data-start="99.5" data-duration="2.5">raj karta tha</div>
+        <div class="caption-line clip" id="c47" data-start="102.0" data-duration="3.23">poore Hindustan par</div>
+        <div class="caption-line gold clip" id="c48" data-start="105.23" data-duration="1.8">Kalinga ki</div>
+        <div class="caption-line clip" id="c49" data-start="107.03" data-duration="1.84">ladai mein</div>
+        <div class="caption-line gold clip" id="c50" data-start="108.87" data-duration="1.8">apna pachhtawa</div>
+        <div class="caption-line clip" id="c51" data-start="110.67" data-duration="1.83">likhwa diya</div>
+        <div class="caption-line gold clip" id="c52" data-start="112.5" data-duration="1.93">usne kuye banwaye</div>
+        <div class="caption-line clip" id="c53" data-start="114.43" data-duration="2.84">sadkon par chhaon</div>
+        <div class="caption-line gold clip" id="c54" data-start="117.27" data-duration="2.2">aur insaanon</div>
+        <div class="caption-line clip" id="c55" data-start="119.47" data-duration="2.36">jaanwaron ke liye</div>
+        <div class="caption-line gold clip" id="c56" data-start="121.83" data-duration="4.0">1,000 saal baad</div>
+        <div class="caption-line clip" id="c57" data-start="125.83" data-duration="2.8">aaj bhi</div>
+        <div class="caption-line gold clip" id="c58" data-start="128.63" data-duration="2.87">har note par uske sher</div>
+      </div>
+
+      <!-- Full-screen Outro Card -->
+      <div id="outro-card" class="clip" data-start="131.5" data-duration="2.5" data-track-index="6">
+        <div id="outro-inner">
+          <svg width="240" height="240" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+            <circle cx="60" cy="60" r="54" stroke="#f5c96b" stroke-width="2.5" />
+            <circle cx="60" cy="60" r="44" stroke="#f5c96b" stroke-width="1" stroke-opacity="0.5" />
+            <circle cx="60" cy="44" r="13" fill="#f5c96b" />
+            <path d="M52 54L46 86H74L68 54H52Z" fill="#f5c96b" />
+          </svg>
+          <div class="outro-title">HIDDEN<br />HISTORY</div>
+          <div class="outro-sub">The past is never really lost.</div>
+          <div class="outro-cta">FOLLOW FOR MORE FORGOTTEN STORIES</div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="scene.js"></script>
+  </body>
+</html>

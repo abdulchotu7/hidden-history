@@ -1,0 +1,8 @@
+.hyperframes/
+node_modules/
+renders/
+analysis/scene_frames/
+analysis/sample_snap.png/
+analysis/full_snap/
+analysis/v2_snap/
+.DS_Store

@@ -1,0 +1,33 @@
+[scdet @ 0xe42478001a30] lavfi.scd.score: 21.147, lavfi.scd.time: 2.033333
+frame=    1 fps=0.0 q=-0.0 size=N/A time=00:00:02.06 bitrate=N/A speed=4.13x elapsed=0:00:00.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 15.733, lavfi.scd.time: 6.766667
+frame=    2 fps=2.0 q=-0.0 size=N/A time=00:00:06.80 bitrate=N/A speed=6.79x elapsed=0:00:01.00    [scdet @ 0xe42478001a30] lavfi.scd.score: 20.710, lavfi.scd.time: 8.966667
+[scdet @ 0xe42478001a30] lavfi.scd.score: 21.499, lavfi.scd.time: 10.833333
+frame=    4 fps=2.7 q=-0.0 size=N/A time=00:00:10.86 bitrate=N/A speed=7.23x elapsed=0:00:01.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 26.843, lavfi.scd.time: 13
+frame=    5 fps=2.5 q=-0.0 size=N/A time=00:00:13.03 bitrate=N/A speed=6.51x elapsed=0:00:02.00    [scdet @ 0xe42478001a30] lavfi.scd.score: 24.864, lavfi.scd.time: 17.733333
+frame=    6 fps=2.4 q=-0.0 size=N/A time=00:00:17.76 bitrate=N/A speed=7.09x elapsed=0:00:02.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 14.147, lavfi.scd.time: 20.766667
+frame=    7 fps=2.3 q=-0.0 size=N/A time=00:00:20.80 bitrate=N/A speed=6.92x elapsed=0:00:03.00    [scdet @ 0xe42478001a30] lavfi.scd.score: 22.037, lavfi.scd.time: 22.466667
+frame=    8 fps=2.3 q=-0.0 size=N/A time=00:00:22.50 bitrate=N/A speed=6.42x elapsed=0:00:03.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 18.524, lavfi.scd.time: 27.466667
+frame=    9 fps=2.2 q=-0.0 size=N/A time=00:00:27.50 bitrate=N/A speed=6.87x elapsed=0:00:04.00    [scdet @ 0xe42478001a30] lavfi.scd.score: 19.364, lavfi.scd.time: 31.166667
+frame=   10 fps=2.2 q=-0.0 size=N/A time=00:00:31.20 bitrate=N/A speed=6.92x elapsed=0:00:04.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 18.693, lavfi.scd.time: 38.4
+frame=   11 fps=2.2 q=-0.0 size=N/A time=00:00:38.43 bitrate=N/A speed=7.68x elapsed=0:00:05.00    frame=   11 fps=2.0 q=-0.0 size=N/A time=00:00:38.43 bitrate=N/A speed=6.98x elapsed=0:00:05.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 18.330, lavfi.scd.time: 43.9
+[scdet @ 0xe42478001a30] lavfi.scd.score: 10.362, lavfi.scd.time: 46.4
+frame=   13 fps=2.2 q=-0.0 size=N/A time=00:00:46.43 bitrate=N/A speed=7.73x elapsed=0:00:06.00    frame=   13 fps=2.0 q=-0.0 size=N/A time=00:00:46.43 bitrate=N/A speed=7.14x elapsed=0:00:06.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 16.205, lavfi.scd.time: 53.566667
+frame=   14 fps=2.0 q=-0.0 size=N/A time=00:00:53.60 bitrate=N/A speed=7.65x elapsed=0:00:07.00    frame=   14 fps=1.9 q=-0.0 size=N/A time=00:00:53.60 bitrate=N/A speed=7.14x elapsed=0:00:07.50    [scdet @ 0xe42478001a30] lavfi.scd.score: 28.465, lavfi.scd.time: 58.566667
+frame=   15 fps=1.9 q=-0.0 size=N/A time=00:00:58.60 bitrate=N/A speed=7.32x elapsed=0:00:08.00    [scdet @ 0xe42478001a30] lavfi.scd.score: 21.316, lavfi.scd.time: 63
+[scdet @ 0xe42478001a30] lavfi.scd.score: 16.109, lavfi.scd.time: 68.233333
+frame=   17 fps=2.0 q=-0.0 size=N/A time=00:01:08.26 bitrate=N/A speed=8.02x elapsed=0:00:08.50    frame=   17 fps=1.9 q=-0.0 size=N/A time=00:01:08.26 bitrate=N/A speed=7.58x elapsed=0:00:09.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 10.673, lavfi.scd.time: 74
+frame=   18 fps=1.9 q=-0.0 size=N/A time=00:01:14.03 bitrate=N/A speed=7.78x elapsed=0:00:09.51    [scdet @ 0xe42478001a30] lavfi.scd.score: 36.591, lavfi.scd.time: 78.9
+frame=   19 fps=1.9 q=-0.0 size=N/A time=00:01:18.93 bitrate=N/A speed=7.88x elapsed=0:00:10.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 23.644, lavfi.scd.time: 83.933333
+frame=   20 fps=1.9 q=-0.0 size=N/A time=00:01:23.96 bitrate=N/A speed=7.99x elapsed=0:00:10.51    frame=   20 fps=1.8 q=-0.0 size=N/A time=00:01:23.96 bitrate=N/A speed=7.62x elapsed=0:00:11.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 20.274, lavfi.scd.time: 90.266667
+frame=   21 fps=1.8 q=-0.0 size=N/A time=00:01:30.30 bitrate=N/A speed=7.84x elapsed=0:00:11.51    [scdet @ 0xe42478001a30] lavfi.scd.score: 26.418, lavfi.scd.time: 93.833333
+frame=   22 fps=1.8 q=-0.0 size=N/A time=00:01:33.86 bitrate=N/A speed=7.81x elapsed=0:00:12.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 50.819, lavfi.scd.time: 95.9
+[scdet @ 0xe42478001a30] lavfi.scd.score: 14.170, lavfi.scd.time: 95.933333
+[scdet @ 0xe42478001a30] lavfi.scd.score: 26.320, lavfi.scd.time: 97
+frame=   25 fps=2.0 q=-0.0 size=N/A time=00:01:37.03 bitrate=N/A speed=7.75x elapsed=0:00:12.51    frame=   25 fps=1.9 q=-0.0 size=N/A time=00:01:37.03 bitrate=N/A speed=7.46x elapsed=0:00:13.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 26.933, lavfi.scd.time: 102
+frame=   26 fps=1.9 q=-0.0 size=N/A time=00:01:42.03 bitrate=N/A speed=7.55x elapsed=0:00:13.51    [scdet @ 0xe42478001a30] lavfi.scd.score: 30.937, lavfi.scd.time: 105.233333
+frame=   27 fps=1.9 q=-0.0 size=N/A time=00:01:45.26 bitrate=N/A speed=7.51x elapsed=0:00:14.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 22.997, lavfi.scd.time: 108.866667
+frame=   28 fps=1.9 q=-0.0 size=N/A time=00:01:48.90 bitrate=N/A speed= 7.5x elapsed=0:00:14.51    frame=   28 fps=1.9 q=-0.0 size=N/A time=00:01:48.90 bitrate=N/A speed=7.25x elapsed=0:00:15.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 25.511, lavfi.scd.time: 112.5
+[scdet @ 0xe42478001a30] lavfi.scd.score: 23.975, lavfi.scd.time: 114.433333
+frame=   30 fps=1.9 q=-0.0 size=N/A time=00:01:54.46 bitrate=N/A speed=7.38x elapsed=0:00:15.51    [scdet @ 0xe42478001a30] lavfi.scd.score: 24.752, lavfi.scd.time: 117.266667
+frame=   31 fps=1.9 q=-0.0 size=N/A time=00:01:57.30 bitrate=N/A speed=7.32x elapsed=0:00:16.01    [scdet @ 0xe42478001a30] lavfi.scd.score: 20.428, lavfi.scd.time: 121.833333
+frame=   32 fps=1.9 q=-0.0 size=N/A time=00:02:01.86 bitrate=N/A speed=7.38x elapsed=0:00:16.51    [scdet @ 0xe42478001a30] lavfi.scd.score: 19.966, lavfi.scd.time: 125.833333
